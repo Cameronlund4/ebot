@@ -1,6 +1,6 @@
 package info.cameronlund.ebot.commands;
 
-import info.cameronlund.ebot.CommandHandler;
+import info.cameronlund.ebot.CommandManager;
 import info.cameronlund.ebot.commands.arguments.CommandArg;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IUser;
@@ -27,11 +27,12 @@ public abstract class SmartCommand {
 
     public abstract void onCommand(CommandCall command);
 
-    public boolean onCommand(CommandHandler handler, MessageReceivedEvent event, IUser sender, String cmd, String alias, String[] args) {
+    public boolean onCommand(CommandManager handler, MessageReceivedEvent event, IUser sender, String cmd, String alias, String[] args) {
         CommandCall call = new CommandCall(handler, event, sender, cmd, alias, args, smartArgs);
 
         // Alright, we want to call this. Process args.
         boolean argSuccess = call.processArgs(); // Check to make sure we're good on args
+
         if (!argSuccess) // If args didn't process successfully
             return true; // Just return. Arg processing should have messaged the sender
 

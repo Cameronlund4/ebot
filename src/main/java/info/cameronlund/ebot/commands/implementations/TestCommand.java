@@ -1,19 +1,16 @@
-package info.cameronlund.ebot.commands;
+package info.cameronlund.ebot.commands.implementations;
 
+import info.cameronlund.ebot.commands.CommandCall;
+import info.cameronlund.ebot.commands.SmartCommand;
 import info.cameronlund.ebot.commands.arguments.BooleanArg;
 import info.cameronlund.ebot.commands.arguments.StringArg;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RateLimitException;
 
-/**
- * Created by MichaelRyan on 3/16/17.
- */
+public class TestCommand extends SmartCommand {
 
-//Super Secret Api key: trnsl.1.1.20170316T223724Z.8238214aa838c9dc.681e23d2bdb0abd2b0d2d9e52b10f212bc257a39
-public class TranslateCommand extends SmartCommand {
-
-    public TranslateCommand(String command) {
+    public TestCommand(String command) {
         super(command);
         this.addArgument("bold", new BooleanArg()).setOptional(true).continueIfMissing(true);
         this.addArgument("message", new StringArg());
@@ -22,17 +19,9 @@ public class TranslateCommand extends SmartCommand {
     public void onCommand(CommandCall call) {
         String message = (String) getArg("message");
         boolean withBold = hasArg("bold") ? (Boolean) getArg("bold") : false;
+
         if (withBold)
             message = "**" + message + "**";
-        try {
-            call.getHandler().sendMessage(message,call.getEvent());
-        } catch (DiscordException e) {
-            e.printStackTrace();
-        } catch (MissingPermissionsException e) {
-            e.printStackTrace();
-        } catch (RateLimitException e) {
-            e.printStackTrace();
-        }
+            call.sendMessage(message);
     }
-
 }

@@ -2,6 +2,7 @@ package info.cameronlund.ebot;
 
 import info.cameronlund.ebot.commands.CommandCall;
 import info.cameronlund.ebot.commands.SmartCommand;
+import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IMessage;
@@ -13,12 +14,17 @@ import sx.blah.discord.util.RateLimitException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommandHandler {
+public class CommandManager {
+    private IDiscordClient client;
     private HashMap<String, SmartCommand> commands = new HashMap<>();
+
+    public CommandManager(IDiscordClient client) {
+        this.client = client;
+    }
 
     @EventSubscriber
     public void OnMesageEvent(MessageReceivedEvent event) throws DiscordException, MissingPermissionsException, RateLimitException {
-        IMessage message = event.getMessage();
+        IMessage message = event.getMessage(); // Get the message
         for (Map.Entry<String, SmartCommand> set : commands.entrySet()) {
             if (message.getContent().toLowerCase().startsWith("!"+set.getKey().toLowerCase())) {
                 String[] argsL = message.getContent().split("\\s");
@@ -34,7 +40,7 @@ public class CommandHandler {
     }
 
     public void sendMessage(String message, MessageReceivedEvent event) throws DiscordException, MissingPermissionsException, RateLimitException {
-        new MessageBuilder(DerpCommandModule.client).appendContent(message).withChannel(event.getMessage().getChannel()).build();
+        new MessageBuilder(client).appendContent(message).withChannel(event.getMessage().getChannel()).build();
     }
 
 }

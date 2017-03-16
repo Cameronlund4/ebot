@@ -1,6 +1,6 @@
 package info.cameronlund.ebot.commands;
 
-import info.cameronlund.ebot.CommandHandler;
+import info.cameronlund.ebot.CommandManager;
 import info.cameronlund.ebot.commands.arguments.CommandArg;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IUser;
@@ -23,7 +23,7 @@ public class CommandCall {
         return sender;
     }
 
-    public CommandHandler getHandler() {
+    public CommandManager getHandler() {
         return handler;
     }
 
@@ -31,10 +31,10 @@ public class CommandCall {
         return event;
     }
 
-    private CommandHandler handler;
+    private CommandManager handler;
     private MessageReceivedEvent event;
 
-    public CommandCall(CommandHandler handler, MessageReceivedEvent event, IUser sender, String cmd, String alias, String[] args, LinkedHashMap<String,
+    public CommandCall(CommandManager handler, MessageReceivedEvent event, IUser sender, String cmd, String alias, String[] args, LinkedHashMap<String,
             CommandArg> smartArgs) {
         this.smartArgs = smartArgs;
         this.sender = sender;
@@ -68,13 +68,9 @@ public class CommandCall {
                         // TODO Output better missing args error
                         try {
                             handler.sendMessage(sender.mention
-                                    (true)+ " you're missing the arg " + argSet.getKey()
-                                    + " so you cant bro", event);
-                        } catch (DiscordException e) {
-                            e.printStackTrace();
-                        } catch (MissingPermissionsException e) {
-                            e.printStackTrace();
-                        } catch (RateLimitException e) {
+                                    (true)+ " you're missing the argument `" + argSet.getKey()
+                                    + "`. Please include it to run the command.", event);
+                        } catch (DiscordException | MissingPermissionsException | RateLimitException e) {
                             e.printStackTrace();
                         }
                         return false;
@@ -125,5 +121,22 @@ public class CommandCall {
 
     public void setAlias(String alias) {
         this.alias = alias;
+    }
+
+    public void sendMessage(String message) {
+        // TODO Output better missing args error
+        try {
+            handler.sendMessage(message, event);
+        } catch (DiscordException | MissingPermissionsException | RateLimitException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteMessage() {
+        try {
+            event.getMessage().delete();
+        } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
+            e.printStackTrace();
+        }
     }
 }
