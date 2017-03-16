@@ -1,0 +1,129 @@
+package info.cameronlund.ebot.commands;
+
+import info.cameronlund.ebot.CommandHandler;
+import info.cameronlund.ebot.commands.arguments.CommandArg;
+import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
+import sx.blah.discord.handle.obj.IUser;
+import sx.blah.discord.util.DiscordException;
+import sx.blah.discord.util.MissingPermissionsException;
+import sx.blah.discord.util.RateLimitException;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+// TODO Javadoc
+public class CommandCall {
+    private String cmd;
+    private String alias;
+    private LinkedHashMap<String, CommandArg> smartArgs;
+    private String[] args;
+    private IUser sender;
+
+    public IUser getSender() {
+        return sender;
+    }
+
+    public CommandHandler getHandler() {
+        return handler;
+    }
+
+    public MessageReceivedEvent getEvent() {
+        return event;
+    }
+
+    private CommandHandler handler;
+    private MessageReceivedEvent event;
+
+    public CommandCall(CommandHandler handler, MessageReceivedEvent event, IUser sender, String cmd, String alias, String[] args, LinkedHashMap<String,
+            CommandArg> smartArgs) {
+        this.smartArgs = smartArgs;
+        this.sender = sender;
+        this.cmd = cmd;
+        this.alias = alias;
+        this.args = args;
+        this.handler = handler;
+        this.event = event;
+    }
+
+    /**
+     * Shit is this a messy method, but it's gotta be what it's gotta be. This method loops the arguments, and <\br>
+     *     and determines whether or not we have the right stuff to run the command, and if so sets the values of the
+     *     args.
+     * @return Whether or not we're good to run
+     */
+    public boolean processArgs() {
+        String[] textArgs = args.clone(); // Make sure we don't kill old args
+
+        // Cache any permissions we've checked, since permission checking can be extensive
+        //HashMap<Permission, Boolean> permissions = new HashMap<Permission, Boolean>();
+        argcheck:
+        for (Map.Entry<String, CommandArg> argSet : smartArgs.entrySet()) {
+            CommandArg arg = argSet.getValue();
+
+            // First, let's see if we even have valid input
+            if (!arg.hasValidInput(textArgs)) { // If we don't have correct arguments
+                // NOTE: This is the same as below but can't be methodized due to returns and continues
+                if (!arg.isContinueIfMissing()) { // And if we don't want to continue
+                    if (!arg.isOptional()) { // And if this wasn't optional, tell the person
+                        // TODO Output better missing args error
+                        try {
+                            handler.sendMessage(sender.mention
+                                    (true)+ " you're missing the arg " + argSet.getKey()
+                                    + " so you cant bro", event);
+                        } catch (DiscordException e) {
+                            e.printStackTrace();
+                        } catch (MissingPermissionsException e) {
+                            e.printStackTrace();
+                        } catch (RateLimitException e) {
+                            e.printStackTrace();
+                        }
+                        return false;
+                    }
+                    return true; // But if it was optional, just say we can run
+                } else { // But if we do want to continue
+                    continue; // Check the next arg
+                }
+                // END NOTE
+            }
+
+            /*// Then if we need to, check their permissions
+            if (arg.hasPermissions()) {
+                for (Object pO : arg.getPermissions()) {
+                    Permission p = (Permission) pO;
+                    if (permissions.containsKey(p) ? permissions.get(p) : sender.hasPermission(p)) { // We have perm
+                        if (!permissions.containsKey(p))
+                            permissions.put(p, true);
+                    } else { // We don't have perm
+                        if (!permissions.containsKey(p))
+                            permissions.put(p, false);
+                        // NOTE: This is the same as above but can't be methodized due to returns and continues
+                        if (!arg.isContinueIfMissing()) { // And if we don't want to continue
+                            if (!arg.isOptional()) { // And if this wasn't optional, tell the person
+                                // TODO Output better missing perms error
+                                sender.sendMessage("Missing permission " + p + " so you cant bro");
+                                return false;
+                            }
+                            return true; // But if it was optional, just say we can run
+                        } else { // But if we do want to continue
+                            continue argcheck; // Check the next arg
+                        }
+                        // END NOTE
+                    }
+                }
+            }*/
+
+            // Okay, everything checks out and we can use this. Let's process the argument and move on
+            textArgs = arg.processArgs(textArgs);
+        }
+
+        return true;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+}
