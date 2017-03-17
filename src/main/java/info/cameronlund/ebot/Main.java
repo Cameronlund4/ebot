@@ -1,9 +1,6 @@
 package info.cameronlund.ebot;
 
-import info.cameronlund.ebot.commands.BackwardsCommand;
-import info.cameronlund.ebot.commands.BadWordCommand;
-import info.cameronlund.ebot.commands.RyanCommand;
-import info.cameronlund.ebot.commands.TestCommand;
+import info.cameronlund.ebot.commands.*;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.EventDispatcher;
@@ -20,6 +17,7 @@ public class Main {
         handler.addCommand("ryan", new RyanCommand("ryan"));
         handler.addCommand("backwards", new BackwardsCommand("backwards"));
         handler.addCommand("badword", new BadWordCommand("badword"));
+        handler.addCommand("translate", new TranslateCommand("translate"));
         dispatcher.registerListener(handler); // Registers the IListener example class from above
     }
 
