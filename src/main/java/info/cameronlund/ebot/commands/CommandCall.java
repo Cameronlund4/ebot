@@ -23,25 +23,25 @@ public class CommandCall {
         return sender;
     }
 
-    public CommandManager getHandler() {
-        return handler;
+    public CommandManager getManager() {
+        return manager;
     }
 
     public MessageReceivedEvent getEvent() {
         return event;
     }
 
-    private CommandManager handler;
+    private CommandManager manager;
     private MessageReceivedEvent event;
 
-    public CommandCall(CommandManager handler, MessageReceivedEvent event, IUser sender, String cmd, String alias, String[] args, LinkedHashMap<String,
+    public CommandCall(CommandManager manager, MessageReceivedEvent event, IUser sender, String cmd, String alias, String[] args, LinkedHashMap<String,
             CommandArg> smartArgs) {
         this.smartArgs = smartArgs;
         this.sender = sender;
         this.cmd = cmd;
         this.alias = alias;
         this.args = args;
-        this.handler = handler;
+        this.manager = manager;
         this.event = event;
     }
 
@@ -67,7 +67,7 @@ public class CommandCall {
                     if (!arg.isOptional()) { // And if this wasn't optional, tell the person
                         // TODO Output better missing args error
                         try {
-                            handler.sendMessage(sender.mention
+                            manager.sendMessage(sender.mention
                                     (true)+ " you're missing the argument `" + argSet.getKey()
                                     + "`. Please include it to run the command.", event);
                         } catch (DiscordException | MissingPermissionsException | RateLimitException e) {
@@ -126,7 +126,7 @@ public class CommandCall {
     public void sendMessage(String message) {
         // TODO Output better missing args error
         try {
-            handler.sendMessage(message, event);
+            manager.sendMessage(message, event);
         } catch (DiscordException | MissingPermissionsException | RateLimitException e) {
             e.printStackTrace();
         }

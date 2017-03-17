@@ -1,9 +1,5 @@
 package info.cameronlund.ebot.commands.arguments;
 
-/**
- * Created by MichaelRyan on 3/16/17.
- */
-
 public class LangArg extends CommandArg<String> {
 
     private String[] codes = {"ab","aa","af","ak","sq","am","ar","an","hy","as","av","ae","ay","az","bm","ba","eu","be",

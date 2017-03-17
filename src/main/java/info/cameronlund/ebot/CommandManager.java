@@ -4,6 +4,7 @@ import info.cameronlund.ebot.commands.CommandCall;
 import info.cameronlund.ebot.commands.SmartCommand;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.EventSubscriber;
+import sx.blah.discord.api.internal.json.objects.EmbedObject;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.util.DiscordException;
@@ -42,5 +43,4 @@ public class CommandManager {
     public void sendMessage(String message, MessageReceivedEvent event) throws DiscordException, MissingPermissionsException, RateLimitException {
         new MessageBuilder(client).appendContent(message).withChannel(event.getMessage().getChannel()).build();
     }
-
 }

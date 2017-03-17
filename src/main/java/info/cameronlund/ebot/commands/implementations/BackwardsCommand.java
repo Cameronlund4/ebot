@@ -19,7 +19,7 @@ public class BackwardsCommand extends SmartCommand {
         String message = (String) getArg("message");
         message = reverseStr(message);
         try {
-            call.getHandler().sendMessage(message,call.getEvent());
+            call.getManager().sendMessage(message,call.getEvent());
         } catch (DiscordException e) {
             e.printStackTrace();
         } catch (MissingPermissionsException e) {

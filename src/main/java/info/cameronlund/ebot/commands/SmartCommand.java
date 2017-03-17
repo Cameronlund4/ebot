@@ -27,8 +27,8 @@ public abstract class SmartCommand {
 
     public abstract void onCommand(CommandCall command);
 
-    public boolean onCommand(CommandManager handler, MessageReceivedEvent event, IUser sender, String cmd, String alias, String[] args) {
-        CommandCall call = new CommandCall(handler, event, sender, cmd, alias, args, smartArgs);
+    public boolean onCommand(CommandManager manager, MessageReceivedEvent event, IUser sender, String cmd, String alias, String[] args) {
+        CommandCall call = new CommandCall(manager, event, sender, cmd, alias, args, smartArgs);
 
         // Alright, we want to call this. Process args.
         boolean argSuccess = call.processArgs(); // Check to make sure we're good on args

@@ -7,9 +7,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Created by MichaelRyan on 3/16/17.
- */
 public class HttpsRequest {
 
     private URL url;
@@ -18,8 +15,6 @@ public class HttpsRequest {
         try {
             this.url = new URL(url);
         } catch(MalformedURLException e) {
-            e.printStackTrace();
-        } catch(IOException e) {
             e.printStackTrace();
         }
     }
