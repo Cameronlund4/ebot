@@ -17,14 +17,9 @@ public class LangArg extends CommandArg<String> {
             "ve","vi","vo","wa","cy","fy","wo","xh","yi","yo","za","zu"};
 
     public String[] processArgs(String[] inputArgs) {
-        // Assume we have valid input since this is getting called
-        String result = "";
-        for (String part : inputArgs)
-            result += " "+(part.replaceAll("/", ""));
-        result = result.trim(); // Get rid of leading space
-        setResult(result);
-
-        return new String[0];
+        String lang = inputArgs[0].toLowerCase().trim();
+        setResult(lang);
+        return removeStartArgs(inputArgs,0);
     }
 
     public boolean hasValidInput(String[] inputArgs) {
