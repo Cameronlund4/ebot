@@ -1,5 +1,7 @@
-package info.cameronlund.ebot.commands;
+package info.cameronlund.ebot.commands.implementations;
 
+import info.cameronlund.ebot.commands.CommandCall;
+import info.cameronlund.ebot.commands.SmartCommand;
 import info.cameronlund.ebot.commands.arguments.BooleanArg;
 import info.cameronlund.ebot.commands.arguments.StringArg;
 import sx.blah.discord.util.DiscordException;
@@ -17,16 +19,9 @@ public class TestCommand extends SmartCommand {
     public void onCommand(CommandCall call) {
         String message = (String) getArg("message");
         boolean withBold = hasArg("bold") ? (Boolean) getArg("bold") : false;
+
         if (withBold)
             message = "**" + message + "**";
-        try {
-            call.getHandler().sendMessage(message,call.getEvent());
-        } catch (DiscordException e) {
-            e.printStackTrace();
-        } catch (MissingPermissionsException e) {
-            e.printStackTrace();
-        } catch (RateLimitException e) {
-            e.printStackTrace();
-        }
+            call.sendMessage(message);
     }
 }
