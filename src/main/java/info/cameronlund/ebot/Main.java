@@ -1,13 +1,6 @@
 package info.cameronlund.ebot;
 
-<<<<<<< HEAD
-import info.cameronlund.ebot.commands.*;
-=======
-import info.cameronlund.ebot.commands.BackwardsCommand;
-import info.cameronlund.ebot.commands.implementations.CensorCommand;
-import info.cameronlund.ebot.commands.implementations.RyanCommand;
-import info.cameronlund.ebot.commands.implementations.TestCommand;
->>>>>>> origin/master
+import info.cameronlund.ebot.commands.implementations.*;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.EventDispatcher;
@@ -19,16 +12,6 @@ public class Main {
                 true);
 
         EventDispatcher dispatcher = client.getDispatcher(); // Gets the EventDispatcher instance for this client instance
-<<<<<<< HEAD
-        new DerpCommandModule().enable(client);
-        CommandHandler handler = new CommandHandler();
-        handler.addCommand("boldtest",new TestCommand("boldtest"));
-        handler.addCommand("ryan", new RyanCommand("ryan"));
-        handler.addCommand("backwards", new BackwardsCommand("backwards"));
-        handler.addCommand("badword", new BadWordCommand("badword"));
-        handler.addCommand("translate", new TranslateCommand("translate"));
-        dispatcher.registerListener(handler); // Registers the IListener example class from above
-=======
 
         CommandManager cmanager = new CommandManager(client);
         cmanager.addCommand("boldtest",new TestCommand("boldtest"));
@@ -36,8 +19,8 @@ public class Main {
         cmanager.addCommand("backwards", new BackwardsCommand("backwards"));
         cmanager.addCommand("badword", new CensorCommand("badword"));
         cmanager.addCommand("censor", new CensorCommand("censor"));
+        cmanager.addCommand("translate", new TranslateCommand("translate"));
         dispatcher.registerListener(cmanager); // Registers the command manager's listener
->>>>>>> origin/master
     }
 
     public static IDiscordClient createClient(String token, boolean login) { // Returns a new instance of the Discord client

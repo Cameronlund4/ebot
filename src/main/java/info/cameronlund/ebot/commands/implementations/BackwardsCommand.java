@@ -1,5 +1,7 @@
-package info.cameronlund.ebot.commands;
+package info.cameronlund.ebot.commands.implementations;
 
+import info.cameronlund.ebot.commands.CommandCall;
+import info.cameronlund.ebot.commands.SmartCommand;
 import info.cameronlund.ebot.commands.arguments.BooleanArg;
 import info.cameronlund.ebot.commands.arguments.StringArg;
 import sx.blah.discord.util.DiscordException;

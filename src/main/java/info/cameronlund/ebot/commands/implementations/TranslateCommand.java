@@ -1,14 +1,10 @@
 package info.cameronlund.ebot.commands.implementations;
 
-<<<<<<< HEAD:src/main/java/info/cameronlund/ebot/commands/TranslateCommand.java
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import info.cameronlund.ebot.HttpsRequest;
-=======
 import info.cameronlund.ebot.commands.CommandCall;
 import info.cameronlund.ebot.commands.SmartCommand;
->>>>>>> origin/master:src/main/java/info/cameronlund/ebot/commands/implementations/TranslateCommand.java
-import info.cameronlund.ebot.commands.arguments.BooleanArg;
 import info.cameronlund.ebot.commands.arguments.LangArg;
 import info.cameronlund.ebot.commands.arguments.StringArg;
 
@@ -24,28 +20,12 @@ public class TranslateCommand extends SmartCommand {
 
     public void onCommand(CommandCall call) {
         String message = (String) getArg("message");
-<<<<<<< HEAD:src/main/java/info/cameronlund/ebot/commands/TranslateCommand.java
         boolean withFrom = hasArg("from");
         if (withFrom)
             message = translate((String) getArg("to"),(String) getArg("from"),message);
         else
             message = translate((String) getArg("to"),message);
-        try {
-            call.getHandler().sendMessage(message,call.getEvent());
-        } catch (DiscordException e) {
-            e.printStackTrace();
-        } catch (MissingPermissionsException e) {
-            e.printStackTrace();
-        } catch (RateLimitException e) {
-            e.printStackTrace();
-        }
-=======
-        boolean withBold = hasArg("bold") ? (Boolean) getArg("bold") : false;
-        if (withBold)
-            message = "**" + message + "**";
-
         call.sendMessage(message);
->>>>>>> origin/master:src/main/java/info/cameronlund/ebot/commands/implementations/TranslateCommand.java
     }
 
     private String translate(String to, String from, String str) {
