@@ -16,4 +16,5 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile "com.github.austinv11:Discord4j:2.7.0"
+    compile 'com.sedmelluq:lavaplayer:1.2.29'
 }

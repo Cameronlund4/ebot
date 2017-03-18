@@ -1,16 +1,25 @@
 package info.cameronlund.ebot.commands.arguments;
 
+import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.IUser;
 
-public class UserArg extends CommandArg<IUser>{
+public class UserArg extends SingleCommandArg<IUser> {
+    private IDiscordClient client;
 
-    @Override
-    public String[] processArgs(String[] inputArgs) {
-        return new String[0];
+    public UserArg(IDiscordClient client) {
+        this.client = client;
     }
 
     @Override
-    public boolean hasValidInput(String[] inputArgs) {
-        return false;
+    public void processArgs(String string) {
+        System.out.println("Before: " + string + " After: " + string.substring(4, string.length() - 1));
+        setResult(client.getUserByID(string.substring(3, string.length() - 1)));
+    }
+
+    @Override
+    public boolean hasValidInput(String string) {
+        if (!(string.startsWith("<@!") && string.endsWith(">")))
+            return false;
+        return true;
     }
 }

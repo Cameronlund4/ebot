@@ -4,9 +4,9 @@ import info.cameronlund.ebot.commands.CommandCall;
 import info.cameronlund.ebot.commands.SmartCommand;
 import info.cameronlund.ebot.commands.arguments.BooleanArg;
 import info.cameronlund.ebot.commands.arguments.StringArg;
-import sx.blah.discord.util.DiscordException;
-import sx.blah.discord.util.MissingPermissionsException;
-import sx.blah.discord.util.RateLimitException;
+import sx.blah.discord.util.EmbedBuilder;
+
+import java.awt.*;
 
 public class TestCommand extends SmartCommand {
 
@@ -22,6 +22,8 @@ public class TestCommand extends SmartCommand {
 
         if (withBold)
             message = "**" + message + "**";
-            call.sendMessage(message);
+
+        call.sendEmbedMessage(message, new EmbedBuilder().withAuthorName("StaticShadow").withColor(Color.RED)
+                .withDesc("He's the real OG").build());
     }
 }

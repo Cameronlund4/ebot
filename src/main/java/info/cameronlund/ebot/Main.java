@@ -1,5 +1,8 @@
 package info.cameronlund.ebot;
 
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import info.cameronlund.ebot.commands.implementations.*;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
@@ -20,6 +23,7 @@ public class Main {
         cmanager.addCommand("badword", new CensorCommand("badword"));
         cmanager.addCommand("censor", new CensorCommand("censor"));
         cmanager.addCommand("translate", new TranslateCommand("translate"));
+        cmanager.addCommand("usertest", new UserCommand("usertest", client));
         dispatcher.registerListener(cmanager); // Registers the command manager's listener
     }
 
