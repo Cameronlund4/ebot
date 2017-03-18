@@ -20,6 +20,7 @@ public class Main {
         cmanager.addCommand("badword", new CensorCommand("badword"));
         cmanager.addCommand("censor", new CensorCommand("censor"));
         cmanager.addCommand("translate", new TranslateCommand("translate"));
+        cmanager.addCommand("vexquery", new VexCommand("vexquery"));
         dispatcher.registerListener(cmanager); // Registers the command manager's listener
     }
 
