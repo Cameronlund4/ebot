@@ -1,8 +1,5 @@
 package info.cameronlund.ebot.commands.arguments;
 
-/**
- * Created by MichaelRyan on 3/17/17.
- */
 public class TeamArg extends CommandArg<String> {
 
     public String[] processArgs(String[] inputArgs) {

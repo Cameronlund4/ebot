@@ -2,6 +2,7 @@ package info.cameronlund.ebot.commands;
 
 import info.cameronlund.ebot.CommandManager;
 import info.cameronlund.ebot.commands.arguments.CommandArg;
+import sx.blah.discord.api.internal.json.objects.EmbedObject;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.util.DiscordException;
@@ -47,8 +48,9 @@ public class CommandCall {
 
     /**
      * Shit is this a messy method, but it's gotta be what it's gotta be. This method loops the arguments, and <\br>
-     *     and determines whether or not we have the right stuff to run the command, and if so sets the values of the
-     *     args.
+     * and determines whether or not we have the right stuff to run the command, and if so sets the values of the
+     * args.
+     *
      * @return Whether or not we're good to run
      */
     public boolean processArgs() {
@@ -68,7 +70,7 @@ public class CommandCall {
                         // TODO Output better missing args error
                         try {
                             manager.sendMessage(sender.mention
-                                    (true)+ " you're missing the argument `" + argSet.getKey()
+                                    (true) + " you're missing the argument `" + argSet.getKey()
                                     + "`. Please include it to run the command.", event);
                         } catch (DiscordException | MissingPermissionsException | RateLimitException e) {
                             e.printStackTrace();
@@ -127,6 +129,15 @@ public class CommandCall {
         // TODO Output better missing args error
         try {
             manager.sendMessage(message, event);
+        } catch (DiscordException | MissingPermissionsException | RateLimitException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendEmbedMessage(String message, EmbedObject obj) {
+        // TODO Output better missing args error
+        try {
+            manager.sendEmbedMessage(message, event, obj);
         } catch (DiscordException | MissingPermissionsException | RateLimitException e) {
             e.printStackTrace();
         }
