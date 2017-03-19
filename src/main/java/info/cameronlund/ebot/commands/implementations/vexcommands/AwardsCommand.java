@@ -24,6 +24,11 @@ public class AwardsCommand extends VexQueryCommand {
         JsonObject response = query("&team=" + getArg("team"));
         JsonArray results = getResults(response);
 
+        if (results.size() == 0) {
+            call.sendMessage("No awards could be found for team **"+getArg("team")+"**");
+            return;
+        }
+
         HashMap<String, List<String>> awardsAtEvent = new HashMap<>();
         for (JsonElement resultRaw : results) {
             JsonObject result = resultRaw.getAsJsonObject();
