@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="904127b4-810e-4768-8d11-b259dbd57320" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/info/cameronlund/ebot/commands/implementations/vexcommands/AwardsCommand.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/info/cameronlund/ebot/commands/implementations/vexcommands/VexQueryCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/info/cameronlund/ebot/commands/CommandCall.class" afterPath="$PROJECT_DIR$/build/classes/main/info/cameronlund/ebot/commands/CommandCall.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/info/cameronlund/ebot/Main.class" afterPath="$PROJECT_DIR$/build/classes/main/info/cameronlund/ebot/Main.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/info/cameronlund/ebot/Main.java" afterPath="$PROJECT_DIR$/src/main/java/info/cameronlund/ebot/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/info/cameronlund/ebot/commands/implementations/vexcommands/AwardsCommand.java" afterPath="$PROJECT_DIR$/src/main/java/info/cameronlund/ebot/commands/implementations/vexcommands/AwardsCommand.java" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -77,8 +75,8 @@
       <file leaf-file-name="AwardsCommand.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/info/cameronlund/ebot/commands/implementations/vexcommands/AwardsCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="431">
-              <caret line="48" column="34" lean-forward="false" selection-start-line="48" selection-start-column="34" selection-end-line="48" selection-end-column="34" />
+            <state relative-caret-position="227">
+              <caret line="27" column="85" lean-forward="false" selection-start-line="27" selection-start-column="85" selection-end-line="27" selection-end-column="85" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -89,8 +87,8 @@
       <file leaf-file-name="VexCommand.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/info/cameronlund/ebot/commands/implementations/VexCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+            <state relative-caret-position="340">
+              <caret line="28" column="48" lean-forward="true" selection-start-line="28" selection-start-column="48" selection-end-line="28" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -860,7 +858,14 @@
       <option name="project" value="LOCAL" />
       <updated>1489755454244</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Worked on command framework&#10;Added framework for making commands that query vexdb.io, added command to query a team's awards&#10;">
+      <created>1489886344665</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1489886344665</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -913,7 +918,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add more command argument stuff" />
     <MESSAGE value="Worked on command framework&#10;Added framework for making commands that query vexdb.io, added command to query a team's awards&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Worked on command framework&#10;Added framework for making commands that query vexdb.io, added command to query a team's awards&#10;" />
+    <MESSAGE value="Added handling when there aren't any results" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added handling when there aren't any results" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1250,22 +1256,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/info/cameronlund/ebot/commands/implementations/TestCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="25" column="8" lean-forward="false" selection-start-line="25" selection-start-column="8" selection-end-line="26" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/info/cameronlund/ebot/commands/implementations/VexCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/info/cameronlund/ebot/commands/implementations/vexcommands/VexQueryCommand.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="261">
@@ -1280,10 +1270,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/info/cameronlund/ebot/commands/implementations/VexCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="28" column="48" lean-forward="true" selection-start-line="28" selection-start-column="48" selection-end-line="28" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/info/cameronlund/ebot/commands/implementations/TestCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="25" column="8" lean-forward="false" selection-start-line="25" selection-start-column="8" selection-end-line="26" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/info/cameronlund/ebot/commands/implementations/vexcommands/AwardsCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="48" column="34" lean-forward="false" selection-start-line="48" selection-start-column="34" selection-end-line="48" selection-end-column="34" />
+        <state relative-caret-position="227">
+          <caret line="27" column="85" lean-forward="false" selection-start-line="27" selection-start-column="85" selection-end-line="27" selection-end-column="85" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
