@@ -5,6 +5,7 @@ import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import info.cameronlund.ebot.commands.implementations.*;
 import info.cameronlund.ebot.commands.implementations.vexcommands.AwardsCommand;
+import info.cameronlund.ebot.commands.implementations.vexcommands.RankCommand;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.EventDispatcher;
@@ -24,9 +25,9 @@ public class Main {
         cmanager.addCommand("badword", new CensorCommand("badword"));
         cmanager.addCommand("censor", new CensorCommand("censor"));
         cmanager.addCommand("translate", new TranslateCommand("translate"));
-        cmanager.addCommand("vexquery", new VexCommand("vexquery"));
         cmanager.addCommand("usertest", new UserCommand("usertest", client));
         cmanager.addCommand("awards", new AwardsCommand("awards"));
+        cmanager.addCommand("rank", new RankCommand("rank"));
 
         dispatcher.registerListener(cmanager); // Registers the command manager's listener
     }
