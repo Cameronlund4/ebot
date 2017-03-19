@@ -23,7 +23,6 @@ public class TestCommand extends SmartCommand {
         if (withBold)
             message = "**" + message + "**";
 
-        call.sendEmbedMessage(message, new EmbedBuilder().withAuthorName("StaticShadow").withColor(Color.RED)
-                .withDesc("He's the real OG").build());
+        call.sendMessage(message);
     }
 }

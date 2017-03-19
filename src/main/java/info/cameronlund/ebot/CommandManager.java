@@ -2,6 +2,8 @@ package info.cameronlund.ebot;
 
 import info.cameronlund.ebot.commands.CommandCall;
 import info.cameronlund.ebot.commands.SmartCommand;
+import info.cameronlund.ebot.commands.SmartCommandable;
+import info.cameronlund.ebot.commands.arguments.NamedArg;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.api.internal.json.objects.EmbedObject;
@@ -36,6 +38,15 @@ public class CommandManager {
 
     public void addCommand(String command, SmartCommand smartCommand) {
         commands.put(command, smartCommand);
+    }
+
+    public void addCommand(String command, SmartCommandable commandable, NamedArg... args) {
+        commands.put(command, new SmartCommand(command, commandable, args) {
+            @Override
+            public void onCommand(CommandCall command) {
+                // This is ignored
+            }
+        });
     }
 
     public void sendMessage(String message, MessageReceivedEvent event) throws DiscordException, MissingPermissionsException, RateLimitException {

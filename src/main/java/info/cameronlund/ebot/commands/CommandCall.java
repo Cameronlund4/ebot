@@ -61,6 +61,7 @@ public class CommandCall {
         argcheck:
         for (Map.Entry<String, CommandArg> argSet : smartArgs.entrySet()) {
             CommandArg arg = argSet.getValue();
+            arg.clearResult();
 
             // First, let's see if we even have valid input
             if (!arg.hasValidInput(textArgs)) { // If we don't have correct arguments
@@ -70,7 +71,8 @@ public class CommandCall {
                         // TODO Output better missing args error
                         try {
                             manager.sendMessage(sender.mention
-                                    (true) + " you're missing the argument `" + argSet.getKey()
+                                    (true) + " you're missing  or have invalid input for " +
+                                    "the argument `" + argSet.getKey()
                                     + "`. Please include it to run the command.", event);
                         } catch (DiscordException | MissingPermissionsException | RateLimitException e) {
                             e.printStackTrace();

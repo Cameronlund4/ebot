@@ -26,6 +26,10 @@ public abstract class CommandArg<T> {
         return result;
     }
 
+    public void clearResult() {
+        result = null;
+    }
+
     public boolean hasResult() {
         return result != null;
     }

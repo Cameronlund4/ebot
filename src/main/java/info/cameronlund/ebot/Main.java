@@ -1,15 +1,18 @@
 package info.cameronlund.ebot;
 
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
-import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
+import info.cameronlund.ebot.commands.arguments.BooleanArg;
+import info.cameronlund.ebot.commands.arguments.NamedArg;
+import info.cameronlund.ebot.commands.arguments.StringArg;
 import info.cameronlund.ebot.commands.implementations.*;
 import info.cameronlund.ebot.commands.implementations.vexcommands.AwardsCommand;
 import info.cameronlund.ebot.commands.implementations.vexcommands.RankCommand;
+import info.cameronlund.ebot.commands.implementations.vexcommands.TeamCommand;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.EventDispatcher;
 import sx.blah.discord.util.DiscordException;
+import sx.blah.discord.util.MissingPermissionsException;
+import sx.blah.discord.util.RateLimitException;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,13 +23,26 @@ public class Main {
 
         CommandManager cmanager = new CommandManager(client);
         cmanager.addCommand("boldtest",new TestCommand("boldtest"));
-        cmanager.addCommand("ryan", new RyanCommand("ryan"));
+        cmanager.addCommand("ryan", (command, call) -> {
+            call.sendMessage("***Look, it has too much give!***");
+        });
+        cmanager.addCommand("error", (command, call) -> {
+            @SuppressWarnings("NumericOverflow") int i = 10/0;
+        });
+        cmanager.addCommand("pmtest", (command, call) -> {
+            try {
+                call.getSender().getOrCreatePMChannel().sendMessage("LOL nerd");
+            } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
+                e.printStackTrace();
+            }
+        });
         cmanager.addCommand("backwards", new BackwardsCommand("backwards"));
         cmanager.addCommand("badword", new CensorCommand("badword"));
         cmanager.addCommand("censor", new CensorCommand("censor"));
         cmanager.addCommand("translate", new TranslateCommand("translate"));
         cmanager.addCommand("usertest", new UserCommand("usertest", client));
         cmanager.addCommand("awards", new AwardsCommand("awards"));
+        cmanager.addCommand("team", new TeamCommand("team"));
         cmanager.addCommand("rank", new RankCommand("rank"));
 
         dispatcher.registerListener(cmanager); // Registers the command manager's listener
