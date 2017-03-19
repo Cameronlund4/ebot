@@ -27,6 +27,7 @@ public class Main {
         cmanager.addCommand("vexquery", new VexCommand("vexquery"));
         cmanager.addCommand("usertest", new UserCommand("usertest", client));
         cmanager.addCommand("awards", new AwardsCommand("awards"));
+
         dispatcher.registerListener(cmanager); // Registers the command manager's listener
     }
 
