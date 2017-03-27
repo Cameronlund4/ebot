@@ -10,10 +10,17 @@ import info.cameronlund.ebot.commands.implementations.vexcommands.TeamCommand;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.EventDispatcher;
+import sx.blah.discord.handle.obj.IRole;
+import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RateLimitException;
 
+import java.util.ArrayList;
+
+// The Guild ID is 291026622046273538 for future reference
+//      The Role ID for Officers is 291940898571419660
+//      The Role ID for Moderators is 291027779477176320
 public class Main {
     public static void main(String[] args) {
         IDiscordClient client = createClient("MjkxNzI5MTA4MDg0MTk1MzM4.C6txGw.Q5MXj3_AUfkBuiOaYD0LRVoVq40",
@@ -21,7 +28,8 @@ public class Main {
 
         EventDispatcher dispatcher = client.getDispatcher(); // Gets the EventDispatcher instance for this client instance
 
-        CommandManager cmanager = new CommandManager(client);
+        PermManager pmanager = new PermManager();
+        CommandManager cmanager = new CommandManager(client,pmanager);
         cmanager.addCommand("boldtest",new TestCommand("boldtest"));
         cmanager.addCommand("ryan", (command, call) -> {
             call.sendMessage("***Look, it has too much give!***");
@@ -44,6 +52,7 @@ public class Main {
         cmanager.addCommand("awards", new AwardsCommand("awards"));
         cmanager.addCommand("team", new TeamCommand("team"));
         cmanager.addCommand("rank", new RankCommand("rank"));
+        cmanager.addCommand("mute", new MuteCommand("mute", client, pmanager));
 
         dispatcher.registerListener(cmanager); // Registers the command manager's listener
     }

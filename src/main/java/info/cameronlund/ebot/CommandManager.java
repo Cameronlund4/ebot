@@ -9,30 +9,38 @@ import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.api.internal.json.objects.EmbedObject;
 import sx.blah.discord.handle.impl.events.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IMessage;
+import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.util.*;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CommandManager {
     private IDiscordClient client;
     private HashMap<String, SmartCommand> commands = new HashMap<>();
+    private PermManager pmanager;
 
-    public CommandManager(IDiscordClient client) {
+    public CommandManager(IDiscordClient client, PermManager pmanager) {
         this.client = client;
+        this.pmanager = pmanager;
     }
 
     @EventSubscriber
     public void OnMesageEvent(MessageReceivedEvent event) throws DiscordException, MissingPermissionsException, RateLimitException {
         IMessage message = event.getMessage(); // Get the message
-        for (Map.Entry<String, SmartCommand> set : commands.entrySet()) {
-            if (message.getContent().toLowerCase().startsWith("!"+set.getKey().toLowerCase())) {
-                String[] argsL = message.getContent().split("\\s");
-                String[] args = new String[argsL.length-1];
-                System.arraycopy(argsL, 1, args, 0, argsL.length - 1);
-                set.getValue().onCommand(this, event, event.getMessage().getAuthor(),set.getKey(),set.getKey(), args);
+        if(!pmanager.isMuted(message.getAuthor())){
+            for (Map.Entry<String, SmartCommand> set : commands.entrySet()) {
+                if (message.getContent().toLowerCase().startsWith("!"+set.getKey().toLowerCase())) {
+                    String[] argsL = message.getContent().split("\\s");
+                    String[] args = new String[argsL.length-1];
+                    System.arraycopy(argsL, 1, args, 0, argsL.length - 1);
+                    set.getValue().onCommand(this, event, event.getMessage().getAuthor(),set.getKey(),set.getKey(), args);
+                }
             }
+        } else {
+            message.delete();
         }
     }
 
