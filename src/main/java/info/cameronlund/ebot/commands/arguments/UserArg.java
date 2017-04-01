@@ -12,13 +12,17 @@ public class UserArg extends SingleCommandArg<IUser> {
 
     @Override
     public void processArgs(String string) {
-        System.out.println("Before: " + string + " After: " + string.substring(4, string.length() - 1));
-        setResult(client.getUserByID(string.substring(3, string.length() - 1)));
+        System.out.println("Before: " + string + " After: " + string.substring(3, string.length() - 1));
+        if(string.charAt(2) == '!')
+            setResult(client.getUserByID(string.substring(3, string.length() - 1)));
+        else
+            setResult(client.getUserByID(string.substring(2, string.length() - 1)));
     }
 
     @Override
     public boolean hasValidInput(String string) {
-        if (!(string.startsWith("<@!") && string.endsWith(">")))
+        System.out.println(string);
+        if (!(string.startsWith("<@") && string.endsWith(">")))
             return false;
         return true;
     }

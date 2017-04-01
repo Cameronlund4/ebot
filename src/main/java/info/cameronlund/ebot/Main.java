@@ -53,6 +53,7 @@ public class Main {
         cmanager.addCommand("team", new TeamCommand("team"));
         cmanager.addCommand("rank", new RankCommand("rank"));
         cmanager.addCommand("mute", new MuteCommand("mute", client, pmanager));
+        cmanager.addCommand("unmute", new UnmuteCommand("unmute", client, pmanager));
 
         dispatcher.registerListener(cmanager); // Registers the command manager's listener
     }

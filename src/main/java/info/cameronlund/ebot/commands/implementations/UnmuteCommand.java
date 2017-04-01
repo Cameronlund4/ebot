@@ -16,17 +16,17 @@ import sx.blah.discord.util.RateLimitException;
 
 import java.util.ArrayList;
 
-public class MuteCommand extends SmartCommand {
+public class UnmuteCommand extends SmartCommand {
 
     IDiscordClient client;
     PermManager pmanager;
 
-    public MuteCommand(String command, IDiscordClient client, PermManager pmanager) {
+    public UnmuteCommand(String command, IDiscordClient client, PermManager pmanager) {
         super(command);
         this.client = client;
         this.pmanager = pmanager;
         this.addArgument("user", new UserArg(client));
-        this.addArgument("message", new StringArg()).setOptional(true).continueIfMissing(true).setDefault("Being a bad boy");
+        this.addArgument("message", new StringArg()).setOptional(true).continueIfMissing(true).setDefault("Being a better boy");
     }
 
     @Override
@@ -38,14 +38,14 @@ public class MuteCommand extends SmartCommand {
                         .withText(" I couldn't find that user!").build());
                 return;
             }
-            command.sendMessage(((IUser) getArg("user")).getName() + " has been muted for: " + getArg("message"));
+            command.sendMessage(((IUser) getArg("user")).getName() + " has been unmuted for: " + getArg("message"));
             try {
-                if(!((IUser) getArg("user")).getID().equals("291729108084195338"))
-                    ((IUser) getArg("user")).getOrCreatePMChannel().sendMessage("You have been muted in the CHE Robotics Server for: " + getArg("message"));
+                if(!((IUser) getArg("user")).getID().equals(command.getSender().getID()))
+                   ((IUser) getArg("user")).getOrCreatePMChannel().sendMessage("You have been unmuted in the CHE Robotics Server for: " + getArg("message"));
             } catch (MissingPermissionsException | RateLimitException | DiscordException e) {
                 e.printStackTrace();
             }
-            pmanager.mute((IUser) getArg("user"));
+            pmanager.unmute((IUser) getArg("user"));
         } else {
             command.sendMessage("Sorry, but you do not have permissions to run this command " + command.getSender().getDisplayName(guild));
         }

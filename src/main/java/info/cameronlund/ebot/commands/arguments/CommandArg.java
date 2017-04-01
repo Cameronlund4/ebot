@@ -6,6 +6,7 @@ import java.util.ArrayList;
 // TODO Javadoc
 public abstract class CommandArg<T> {
     private T result;
+    private T defaultVal;
     private ArrayList<Permission> permissions;
     private boolean optional = false;
     private boolean continueIfMissing = false;
@@ -23,6 +24,8 @@ public abstract class CommandArg<T> {
     }
 
     public T getResult() {
+        if(!hasResult() && defaultVal!=null)
+            return defaultVal;
         return result;
     }
 
@@ -82,5 +85,9 @@ public abstract class CommandArg<T> {
 
     protected String[] removeEndArgs(String[] input, int start) {
         return removeArgs(input, start, input.length-1);
+    }
+
+    public void setDefault(T defaultVal) {
+        this.defaultVal = defaultVal;
     }
 }
